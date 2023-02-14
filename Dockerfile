@@ -22,7 +22,7 @@ RUN apk add curl
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz
 
 # Build the Go app
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o netflakes .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o bin/netflakes .
 
 
 
@@ -30,7 +30,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o netf
 FROM alpine:3.9
 RUN apk add ca-certificates
 
-COPY --from=build_base /tmp/busha/netflakes /app/netflakes
+COPY --from=build_base /tmp/busha/bin/netflakes /app/netflakes
 COPY --from=build_base /tmp/busha/migrate /app/migrate
 
 # Set the Current Working Directory inside the container
