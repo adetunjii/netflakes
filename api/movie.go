@@ -74,7 +74,9 @@ func (s *Server) fetchMovies(ctx *gin.Context) {
 	}
 
 	sort.Sort(ByReleaseDate(movies))
-	ctx.JSON(http.StatusOK, movies)
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": movies,
+	})
 }
 
 type addCommentParams struct {
